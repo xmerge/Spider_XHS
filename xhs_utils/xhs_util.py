@@ -89,7 +89,9 @@ def generate_headers(a1, api, data='', method='POST'):
 
 def generate_request_params(cookies_str, api, data='', method='POST'):
     cookies = trans_cookies(cookies_str)
-    a1 = cookies['a1']
+    a1 = cookies.get("a1")
+    if not a1:
+        raise ValueError("Cookie 缺少必需的 a1 字段")
     headers, data = generate_headers(a1, api, data, method)
     return headers, cookies, data
 
